@@ -10,6 +10,8 @@
 </h1>
 
 <P> 
+${serverTime} </br>
+
 Realizará el recuento de una votación determinada. Para realizar el recuento tendrá que 
 pedir los votos al almacenamiento de votos y deberá lanzar la tarea de recuento 
 sincronizando las diferentes autoridades. </P>
