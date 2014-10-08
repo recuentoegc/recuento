@@ -31,7 +31,7 @@ public class Algoritmo {
 	//Ahora, una vez tenemos las claves, crearemos un mapa al que asignaremos a cada clave su valor.
 	Map<Voto,Integer> resultados = new HashMap<Voto,Integer>();
 
-	for(Voto s1: claves){
+	for(Voto s1: clavesex){
 		resultados.put(s1,0);
 	}
 
@@ -43,4 +43,5 @@ public class Algoritmo {
 		}
 	}
 }
+	//TODO EL MUNDO TOCA EL ALGORITMO
 }
