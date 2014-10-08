@@ -18,7 +18,7 @@ public class Algoritmo {
 	//La supuesta lista que nos pasan
 	
 	public void Algoritmo(){
-	List<Voto> lista = new ArrayList<Voto>();
+	List<Voto> list = new ArrayList<Voto>();
 	
 	//Suponemos que la coleccion "lista" es lo que hemos recuperado de la base de datos
 
