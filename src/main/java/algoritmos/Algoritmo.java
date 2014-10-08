@@ -24,14 +24,14 @@ public class Algoritmo {
 
 	List<String> claves = new ArrayList();
 	
-	
+	//Esto es una locura
 	for (Voto s:lista){
 		claves.add(s.getNombre());
 	}
 	//Ahora, una vez tenemos las claves, crearemos un mapa al que asignaremos a cada clave su valor.
 	Map<Voto,Integer> resultados = new HashMap<Voto,Integer>();
 
-	for(Voto s1: claves){
+	for(Voto s1: lista){
 		resultados.put(s1,0);
 	}
 
@@ -43,4 +43,5 @@ public class Algoritmo {
 		}
 	}
 }
+	//TODO EL MUNDO TOCA EL ALGORITMO
 }
