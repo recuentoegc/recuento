@@ -6,9 +6,12 @@
 </head>
 <body>
 <h1>
-	Hello world!  
+	Grupo encargado del "Recuento"  
 </h1>
 
-<P>  The time on the server is ${serverTime}. </P>
+<P> 
+Realizará el recuento de una votación determinada. Para realizar el recuento tendrá que 
+pedir los votos al almacenamiento de votos y deberá lanzar la tarea de recuento 
+sincronizando las diferentes autoridades. </P>
 </body>
 </html>

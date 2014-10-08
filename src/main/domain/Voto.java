@@ -1,37 +1,35 @@
 package com.egc.test;
 
 public class Voto {
-	
-	private String nombre; //This string returns the name of the vote, not the voter
+
+	private String nombre; // This string returns the name of the vote, not the
+							// voter
 	private Integer edad;
 	private String poblacion;
 
-	
-	//Getters and setters
-	
-	public String getNombre()
-	{
+	// Getters and setters
+
+	public String getNombre() {
 		return this.nombre;
 	}
-	public void setNombre(String n)
-	{
-		this.nombre=n;
+
+	public void setNombre(String n) {
+		this.nombre = n;
 	}
-	
-	public Integer getEdad()
-	{
+
+	public Integer getEdad() {
 		return this.edad;
 	}
-	public void setEdad(Integer e)
-	{
-		this.edad=e;
+
+	public void setEdad(Integer e) {
+		this.edad = e;
 	}
-	public String getPoblacion()
-	{
+
+	public String getPoblacion() {
 		return this.poblacion;
 	}
-	public void setPoblacion(String p)
-	{
-		this.poblacion=p;
+
+	public void setPoblacion(String p) {
+		this.poblacion = p;
 	}
 }
