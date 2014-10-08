@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+
 public class Algoritmo {
 	//Suponemos que la base de datos almacenará la información de la siguiente manera: "PP", "PSOE", "PP", "PODEMOS", ...
 	//Recorreremos toda esa colección, de forma que obtengamos los nombres de cada votación, y los almacenaremos en un hashset (para que no se repitan valores)
