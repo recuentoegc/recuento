@@ -1,8 +1,14 @@
-package com.egc.test;
+package algoritmos;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+
+import domain.Voto;
+
 
 
 public class Algoritmo {
@@ -14,28 +20,27 @@ public class Algoritmo {
 	
 	//Suponemos que la coleccion "lista" es lo que hemos recuperado de la base de datos
 
-	Set<String> claves = new HashSet<String>(); 
-	foreach (String s:lista)
-	{
-		claves.add(s);
+	List<String> claves = new ArrayList();
+	
+	
+	for (Voto s:lista){
+		claves.add(s.getNombre());
 	}
 	//Ahora, una vez tenemos las claves, crearemos un mapa al que asignaremos a cada clave su valor.
 	Map<String,Integer> resultados = new HashMap<String,Integer>();
 
-	foreach(String s: claves)
-	{
-		resultados.put(s,0);
+	for(String s1: claves){
+		resultados.put(s1,0);
 	}
 
-	foreach(String s:lista)
-	{
-		for (int i=0;i<resultados.keySet().size();i++)
-		{
-			if (s.equals(resultados.getKey(i))
-			{
-				resultados.put(s,resultados.get(s)++);
+	for(String s2:lista){
+		for (int i=0;i<resultados.keySet().size();i++){
+			if (s2.equals(resultados.get(i))){
+				resultados.put(s2,resultados.get(s2));
 			}
 		}
 	}
-
+	
+	
+}
 }

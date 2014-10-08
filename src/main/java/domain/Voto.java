@@ -1,4 +1,4 @@
-package com.egc.test;
+package domain;
 
 public class Voto {
 
