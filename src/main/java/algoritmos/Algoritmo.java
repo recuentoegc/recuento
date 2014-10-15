@@ -18,12 +18,12 @@ public class Algoritmo {
 	//La supuesta lista que nos pasan
 	
 	public void Algoritmo(){
-	List<Voto> lista = new ArrayList<Voto>();
+	Set<Voto> lista = new HashSet<Voto>();
 	
 	//Suponemos que la coleccion "lista" es lo que hemos recuperado de la base de datos
 
 	Set<String> claves = new HashSet();
-	int a = 2+2;
+	int a = 4+4;
 	//Esto es una locura
 	for (Voto s:lista){
 		claves.add(s.getNombre());
