@@ -19,7 +19,6 @@ public class Algoritmo {
 	
 	public void Algoritmo(){
 	List<Voto> lista = new ArrayList<Voto>();
-	Integer res;
 	
 	//Suponemos que la coleccion "lista" es lo que hemos recuperado de la base de datos
 
