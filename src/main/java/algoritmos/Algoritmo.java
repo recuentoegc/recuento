@@ -45,4 +45,6 @@ public class Algoritmo {
 	}
 }
 	//TODO EL MUNDO TOCA EL ALGORITMO
+	
+	//NACHO ODIA A LA GORDA
 }
