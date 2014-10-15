@@ -2,8 +2,7 @@ package domain;
 
 public class Voto {
 
-	private String nombre; // This string returns the name of the vote, not the
-							// voter.
+	private String nombre; // This string returns the name of the vote, not the voter.
 	private String region;
 	private Integer edad;
 	private String poblacion;
