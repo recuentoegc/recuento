@@ -43,6 +43,7 @@ public class Algoritmo {
 		}
 	}
 }
-	//T0D0 EL MUND0 TOCA EL ALGORITM0
+	//T0D0 EL MUND0 TOCA EL ALGORITM0.
+	
 	
 }
