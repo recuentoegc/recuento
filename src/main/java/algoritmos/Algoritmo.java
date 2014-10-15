@@ -28,7 +28,7 @@ public class Algoritmo {
 	for (Voto s:lista){
 		claves.add(s.getNombre());
 	}
-	//Ahora, una vez tenemos las claves, crearemos un mapa al que asignaremos a cada clave su valor.
+	//Ahora, una vez tenemos las claves,crearemos un mapa al que asignaremos a cada clave su valor.
 	Map<Voto,Integer> resultados = new HashMap<Voto,Integer>();
 
 	for(Voto s1: lista){
