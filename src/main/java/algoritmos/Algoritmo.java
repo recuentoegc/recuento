@@ -43,7 +43,6 @@ public class Algoritmo {
 		}
 	}
 }
-	//TODO EL MUNDO TOCA EL ALGORITMO
+	//T0D0 EL MUND0 TOCA EL ALGORITM0
 	
-	//NACHO ODIA A LA GORDA
 }
