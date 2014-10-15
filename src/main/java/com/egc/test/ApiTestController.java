@@ -4,6 +4,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import domain.Voto;
+
 @RestController
 public class ApiTestController {
 
@@ -17,4 +19,15 @@ public class ApiTestController {
     	 
     	 return welcome;
     }
+    
+    @RequestMapping("/test")
+    public Voto test(@RequestParam(value="name", required=false, defaultValue="John Dou") String name) {
+    	 Voto voto = new Voto();
+    	 voto.setNombre(name);
+    	 voto.setEdad(35);
+    	 voto.setPoblacion("Sevilla");
+    	 
+    	 return voto;
+    }
+    
 }
