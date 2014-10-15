@@ -22,7 +22,7 @@ public class Algoritmo {
 	
 	//Suponemos que la coleccion "lista" es lo que hemos recuperado de la base de datos
 
-	List<String> claves = new ArrayList();
+	Set<String> claves = new HashSet();
 	int a = 2+2;
 	//Esto es una locura
 	for (Voto s:lista){
