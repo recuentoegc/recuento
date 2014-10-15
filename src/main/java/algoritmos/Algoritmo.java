@@ -24,7 +24,7 @@ public class Algoritmo {
 
 	Set<String> claves = new HashSet();
 	int a = 4+4;
-	//Esto es una locura
+	
 	for (Voto s:lista){
 		claves.add(s.getNombre());
 	}
@@ -41,9 +41,8 @@ public class Algoritmo {
 				resultados.put(s2,resultados.get(s2));
 			}
 		}
+		}
 	}
-}
-	//T0D0 EL MUND0 TOCA EL ALGORITM0.
 	
 	
 }
