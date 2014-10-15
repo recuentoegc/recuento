@@ -2,7 +2,7 @@ package domain;
 
 public class Voto {
 
-	private String name; // This string returns the name of the vote, not the
+	private String nombre; // This string returns the name of the vote, not the
 							// voter
 	private Integer edad;
 	private String poblacion;
@@ -10,11 +10,11 @@ public class Voto {
 	// Getters and setters
 
 	public String getNombre() {
-		return this.name;
+		return this.nombre;
 	}
 
 	public void setNombre(String n) {
-		this.name = n;
+		this.nombre = n;
 	}
 
 	public Integer getEdad() {
