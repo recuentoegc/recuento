@@ -6,7 +6,9 @@
 </head>
 <body>
 <h1>
+
 	Grupo encargado del "Recuento"  
+	
 </h1>
 
 <P> 
