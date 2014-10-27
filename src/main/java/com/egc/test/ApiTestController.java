@@ -8,7 +8,6 @@ import domain.Voto;
 
 @RestController
 public class ApiTestController {
-
    
    
 
