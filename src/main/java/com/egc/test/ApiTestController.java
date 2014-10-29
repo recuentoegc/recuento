@@ -1,9 +1,13 @@
 package com.egc.test;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import algoritmos.Algoritmo;
 import domain.Voto;
 
 @RestController
@@ -27,6 +31,14 @@ public class ApiTestController {
     	 voto.setPoblacion("Sevilla");
     	 
     	 return voto;
+    }
+    
+    
+    
+    @RequestMapping("/recuento")
+    public Map<String,Integer> recuento(Map<String,Integer> listaVotos){
+    	Map<String,Integer> result = Algoritmo.Algoritmo();
+    		return result;
     }
     
 }
