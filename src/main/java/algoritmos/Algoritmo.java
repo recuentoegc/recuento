@@ -17,31 +17,48 @@ public class Algoritmo {
 	
 	//La supuesta lista que nos pasan
 	
-	public void Algoritmo(){
-	Set<Voto> lista = new HashSet<Voto>();
+	List<String> votos = new ArrayList<String>();
+	
+	public Map<String,Integer> Algoritmo(){
+	Set<Voto> listadenombres = new HashSet<Voto>();
+	
+	votos.add("equipo1");
+	votos.add("equipo1");
+	votos.add("equipo1");
+	votos.add("equipo1");
+	votos.add("equipo1");
+	votos.add("equipo1");
+	votos.add("equipo1");
+	votos.add("equipo2");
+	votos.add("equipo3");
+	votos.add("equipo3");
+	votos.add("equipo3");
+	votos.add("equipo3");
+	votos.add("equipo3");
+	
 	
 	//Suponemos que la coleccion "lista" es lo que hemos recuperado de la base de datos
 
-	Set<String> claves = new HashSet();
-	int a = 4+4;
+	Set<String> claves = new HashSet<String>();
 	
-	for (Voto s:lista){
-		claves.add(s.getNombre());
+	for (String s:votos){
+		claves.add(s);
 	}
 	//Ahora, una vez tenemos las claves,crearemos un mapa al que asignaremos a cada clave su valor.
-	Map<Voto,Integer> resultados = new HashMap<Voto,Integer>();
+	Map<String,Integer> resultados = new HashMap<String,Integer>();
 
-	for(Voto s1: lista){
+	for(String s1: claves){
 		resultados.put(s1,0);
 	}
 
-	for(Voto s2:lista){
+	for(String s2:votos){
 		for (int i=0;i<resultados.keySet().size();i++){
 			if (s2.equals(resultados.get(i))){
 				resultados.put(s2,resultados.get(s2));
 			}
 		}
 		}
+	return resultados;
 	}
 	
 	
