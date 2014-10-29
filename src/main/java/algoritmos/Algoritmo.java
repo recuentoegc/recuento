@@ -18,17 +18,17 @@ public class Algoritmo {
 	//La supuesta lista que nos pasan
 	
 	public void Algoritmo(){
-	List<Voto> lista = new ArrayList<Voto>();
+	Set<Voto> lista = new HashSet<Voto>();
 	
 	//Suponemos que la coleccion "lista" es lo que hemos recuperado de la base de datos
 
 	Set<String> claves = new HashSet();
-	int a = 2+2;
-	//Esto es una locura
+
+	
 	for (Voto s:lista){
 		claves.add(s.getNombre());
 	}
-	//Ahora, una vez tenemos las claves, crearemos un mapa al que asignaremos a cada clave su valor.
+	//Ahora, una vez tenemos las claves,crearemos un mapa al que asignaremos a cada clave su valor.
 	Map<Voto,Integer> resultados = new HashMap<Voto,Integer>();
 
 	for(Voto s1: lista){
@@ -41,9 +41,8 @@ public class Algoritmo {
 				resultados.put(s2,resultados.get(s2));
 			}
 		}
+		}
 	}
-}
-	//T0D0 EL MUND0 TOCA EL ALGORITM0.
 	
 	
 }
