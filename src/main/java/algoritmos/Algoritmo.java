@@ -53,14 +53,14 @@ public class Algoritmo {
 		for (String s1 : claves) {
 			resultados.put(s1, 0);
 		}
-
-		for (String s2 : votos) {
-			for (int i = 0; i < resultados.keySet().size(); i++) {
-				if (s2.equals(resultados.get(i))) {
-					resultados.put(s2, resultados.get(s2));
-				}
+		for(String s2:votos)
+		{
+			if(resultados.containsKey(s2))
+			{
+				resultados.put(s2, resultados.get(s2) + 1);
 			}
 		}
+		
 		return resultados;
 	}
 
