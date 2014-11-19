@@ -1,51 +1,21 @@
 package domain;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Voto {
+	
+	List<String> votes;
 
-	private String nombre; // This string returns the name of the vote, not the voter.
-	private String region;
-	private Integer edad;
-	private String poblacion;
-
-	// Getters and setters.
-
-	public String getNombre() {
-		return this.nombre;
+	public List<String> getVotes() {
+		return votes;
 	}
 
-	public void setNombre(String n) {
-		this.nombre = n;
+	public void setVotes(List<String> votes) {
+		this.votes = votes;
 	}
+	
 
-	public Integer getEdad() {
-		return this.edad;
-	}
-
-	public void setEdad(Integer e) {
-		this.edad = e;
-	}
-
-	public String getPoblacion() {
-		return this.poblacion;
-	}
-
-	public void setPoblacion(String p) {
-		this.poblacion = p;
-	}
-
-	
-	
-	
-	public String getRegion() {
-		return region;
-	}
-
-	
-	
-	
-	public void setRegion(String region) {
-		this.region = region;
-	}
-	
-	
 }

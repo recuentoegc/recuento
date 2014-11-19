@@ -23,23 +23,7 @@ public class Algoritmo {
 
 	Set<String> claves = new HashSet<String>();
 
-	public static Map<String,Integer> Algoritmo() {
-
-		List<String> votos = new ArrayList<String>();
-
-		votos.add("equipo1");
-		votos.add("equipo1");
-		votos.add("equipo1");
-		votos.add("equipo1");
-		votos.add("equipo1");
-		votos.add("equipo1");
-		votos.add("equipo1");
-		votos.add("equipo2");
-		votos.add("equipo3");
-		votos.add("equipo3");
-		votos.add("equipo3");
-		votos.add("equipo3");
-		votos.add("equipo3");
+	public static Map<String, Integer> Algoritmo(List<String> votos) {
 
 		// Suponemos que la coleccion "lista" es lo que hemos recuperado de la
 		// base de datos
@@ -56,32 +40,13 @@ public class Algoritmo {
 		for (String s1 : claves) {
 			resultados.put(s1, 0);
 		}
-		for(String s2:votos)
-		{
-			if(resultados.containsKey(s2))
-			{
+		for (String s2 : votos) {
+			if (resultados.containsKey(s2)) {
 				resultados.put(s2, resultados.get(s2) + 1);
 			}
 		}
-		
-	   return resultados;
-	}
-	
-	public static void main(){
-		
-	Map<String,Integer> map = Algoritmo();
-	RestTemplate rest = new RestTemplate();
-	
 
-	HttpMessageConverter f = new FormHttpMessageConverter();
-	HttpMessageConverter s = new StringHttpMessageConverter();
-	List<HttpMessageConverter<?>> lista = new ArrayList<HttpMessageConverter<?>>();
-	lista.add(s);
-	lista.add(f);
-	rest.setMessageConverters(lista);
-		//ESTA URI ES LA URI QUE NOS HACE FALTA PARA MANDAR EL POST
-		String result = rest.postForObject("http://localhost:8080/t", map, String.class);
-		System.out.println(result);
-		 
+		return resultados;
 	}
+
 }
