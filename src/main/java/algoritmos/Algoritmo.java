@@ -7,7 +7,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import domain.Voto;
+import org.springframework.http.converter.FormHttpMessageConverter;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.web.client.RestTemplate;
 
 public class Algoritmo {
 	// Suponemos que la base de datos almacenará la información de la siguiente
@@ -20,7 +23,7 @@ public class Algoritmo {
 
 	Set<String> claves = new HashSet<String>();
 
-	public static Map<String, Integer> Algoritmo() {
+	public static Map<String,Integer> Algoritmo() {
 
 		List<String> votos = new ArrayList<String>();
 
@@ -61,7 +64,24 @@ public class Algoritmo {
 			}
 		}
 		
-		return resultados;
+	   return resultados;
 	}
+	
+	public static void main(){
+		
+	Map<String,Integer> map = Algoritmo();
+	RestTemplate rest = new RestTemplate();
+	
 
+	HttpMessageConverter f = new FormHttpMessageConverter();
+	HttpMessageConverter s = new StringHttpMessageConverter();
+	List<HttpMessageConverter<?>> lista = new ArrayList<HttpMessageConverter<?>>();
+	lista.add(s);
+	lista.add(f);
+	rest.setMessageConverters(lista);
+		//ESTA URI ES LA URI QUE NOS HACE FALTA PARA MANDAR EL POST
+		String result = rest.postForObject("http://localhost:8080/t", map, String.class);
+		System.out.println(result);
+		 
+	}
 }

@@ -1,9 +1,9 @@
 package com.egc.test;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,12 +33,17 @@ public class ApiTestController {
     	 return voto;
     }
     
+    @RequestMapping(value = "/t", method = RequestMethod.POST)
+    public void t(@RequestParam() String name) {
+    	System.out.println(name);
+    }
     
+    
+
     
     @RequestMapping("/recuento")
-    public Map<String,Integer> recuento(Map<String,Integer> listaVotos){
-    	Map<String,Integer> result = Algoritmo.Algoritmo();
-    		return result;
+    public void recuento(){
+    	Algoritmo.main();
     }
     
 }
