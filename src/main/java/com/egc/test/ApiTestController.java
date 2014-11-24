@@ -66,5 +66,20 @@ public class ApiTestController {
 		return recuento;
 
 	}
+	
+	@RequestMapping("/recuento2")
+		public Map<String,Integer> recuento2(
+				@RequestParam(value = "idVotacion", required = true) int idVotacion) {
+	
+			RestTemplate restTemplate = new RestTemplate();
+			Voto votos = restTemplate.getForObject(
+					"http://php-egc.rhcloud.com/get_votes.php?votation_id="
+							+ idVotacion, Voto.class);
+	
+			Map<String, Integer> recuento = Algoritmo.Algoritmo(votos.getVotes());
+			
+			return recuento;
+	
+		}
 
 }

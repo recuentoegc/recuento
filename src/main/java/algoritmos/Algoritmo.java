@@ -21,7 +21,6 @@ public class Algoritmo {
 
 	// La supuesta lista que nos pasan
 
-	Set<String> claves = new HashSet<String>();
 
 	public static Map<String, Integer> Algoritmo(List<String> votos) {
 
