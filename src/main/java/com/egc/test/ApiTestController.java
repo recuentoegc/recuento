@@ -52,7 +52,7 @@ public class ApiTestController {
 			@RequestParam(value = "idVotacion", required = true) int idVotacion) 
 					throws URISyntaxException, IOException  {
 		 
-		URI uri = new URI("https://developers.facebook.com/blog/post/616/");
+		URI uri = new URI("http://localhost:8080/Frontend-Resultados/rest/votacion/post.do?id_votacion="+idVotacion);
 		
 		RestTemplate restTemplate = new RestTemplate();
 		Voto votos = restTemplate.getForObject(
