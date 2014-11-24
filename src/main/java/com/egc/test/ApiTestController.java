@@ -1,5 +1,8 @@
 package com.egc.test;
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -46,14 +49,19 @@ public class ApiTestController {
 
 	@RequestMapping("/recuento")
 	public Map<String,Integer> recuento(
-			@RequestParam(value = "idVotacion", required = true) int idVotacion) {
-
+			@RequestParam(value = "idVotacion", required = true) int idVotacion) 
+					throws URISyntaxException, IOException  {
+		 
+		URI uri = new URI("https://developers.facebook.com/blog/post/616/");
+		
 		RestTemplate restTemplate = new RestTemplate();
 		Voto votos = restTemplate.getForObject(
 				"http://php-egc.rhcloud.com/get_votes.php?votation_id="
 						+ idVotacion, Voto.class);
 
 		Map<String, Integer> recuento = Algoritmo.Algoritmo(votos.getVotes());
+		
+		restTemplate.postForObject(uri, recuento, Map.class);
 		
 		return recuento;
 
