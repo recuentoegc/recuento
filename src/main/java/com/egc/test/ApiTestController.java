@@ -3,7 +3,6 @@ package com.egc.test;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import algoritmos.Algoritmo;
+import domain.Resultado;
 import domain.Voto;
 import domain.VotoAntiguo;
 
@@ -81,5 +81,18 @@ public class ApiTestController {
 			return recuento;
 	
 		}
+	@RequestMapping("/recuento3")
+	public List<Resultado> recuento3(){
+			//@RequestParam(value = "idVotacion", required = true) int idVotacion) {
 
+		//RestTemplate restTemplate = new RestTemplate();
+//		VotoNuevo votos = restTemplate.getForObject(
+//				"http://php-egc.rhcloud.com/get_votes.php?votation_id="
+//						+ idVotacion, Voto.class);
+		
+		
+		List<Resultado> resultados = Algoritmo.algoritmo3();
+		return resultados;
+
+	}
 }
