@@ -1,15 +1,13 @@
 package domain;
 
-import java.util.Map;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class VotoNuevo {
+public class VotoAux {
 	
 	String id;
 	String id_poll;
-	Map<String,String> preguntaRespuesta;
+	String answer;
 	Integer age;
 	String genre;
 	String autonomous_community;
@@ -25,7 +23,12 @@ public class VotoNuevo {
 	public void setId_poll(String id_poll) {
 		this.id_poll = id_poll;
 	}
-	
+	public String getAnswer() {
+		return answer;
+	}
+	public void setAnswer(String answer) {
+		this.answer = answer;
+	}
 	public Integer getAge() {
 		return age;
 	}
@@ -44,12 +47,7 @@ public class VotoNuevo {
 	public void setAutonomous_community(String autonomous_community) {
 		this.autonomous_community = autonomous_community;
 	}
-	public Map<String, String> getPreguntaRespuesta() {
-		return preguntaRespuesta;
-	}
-	public void setPreguntaRespuesta(Map<String, String> preguntaRespuesta) {
-		this.preguntaRespuesta = preguntaRespuesta;
-	}
+
 	
 	
 }

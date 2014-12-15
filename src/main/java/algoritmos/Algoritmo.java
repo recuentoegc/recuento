@@ -1,6 +1,7 @@
 package algoritmos;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.Set;
 import domain.Resultado;
 import domain.VotoAntiguo;
 import domain.VotoNuevo;
+import domain.VotoAux;
 
 public class Algoritmo {
 	// Suponemos que la base de datos almacenará la información de la siguiente
@@ -84,12 +86,12 @@ public class Algoritmo {
 		preguntaRespuesta.put("¿cambiarías algo de esta asignatura?", "si");
 		//preguntaRespuesta.put("¿llegará tarde Neira?", "si");
 		voto1.setId("1");
-		voto1.setIdVotacion("1");
+		voto1.setId_poll("1");
 		voto1.setPreguntaRespuesta(preguntaRespuesta);
 
 		VotoNuevo voto2 = new VotoNuevo();
 		voto2.setId("2");
-		voto2.setIdVotacion("1");
+		voto2.setId_poll("1");
 		Map<String, String> preguntaRespuesta2 = new HashMap<String, String>();
 		preguntaRespuesta2.put("¿esta asignatura es útil?", "si");
 		preguntaRespuesta2.put("¿cambiarías algo de esta asignatura?", "no");
@@ -98,7 +100,7 @@ public class Algoritmo {
 
 		VotoNuevo voto3 = new VotoNuevo();
 		voto3.setId("3");
-		voto3.setIdVotacion("1");
+		voto3.setId_poll("1");
 		Map<String, String> preguntaRespuesta3 = new HashMap<String, String>();
 		preguntaRespuesta3.put("¿esta asignatura es útil?", "no");
 		preguntaRespuesta3.put("¿cambiarías algo de esta asignatura?", "si");
@@ -121,6 +123,54 @@ public class Algoritmo {
 			resultados.add(new Resultado(c, 0, 0));
 		}
 		for (VotoNuevo v : votes) {
+			for (Resultado r : resultados) {
+				if (v.getPreguntaRespuesta().get(r.getPregunta())!=null) {
+					if (v.getPreguntaRespuesta().get(r.getPregunta())
+							.equals("si")) {
+						r.setNumeroSi(r.getNumeroSi() + 1);
+					} else if (v.getPreguntaRespuesta().get(r.getPregunta())
+							.equals("no")) {
+						r.setNumeroNo(r.getNumeroNo() + 1);
+					}
+				}
+			}
+		}
+		return resultados;
+	}
+	public static List<Resultado> algoritmo4(List<VotoAux> votos){
+		List<VotoNuevo> votoNuevos = new ArrayList<VotoNuevo>();
+		
+		for (VotoAux v:votos)
+		{
+			String delim1 = "[,]";
+			String delim2 = "[:]";
+			Map<String,String> preguntaRespuesta = new HashMap<String,String>();
+			List<String> votoRespuestas = Arrays.asList(v.getAnswer().split(delim1));
+			for(int i=0;i<votoRespuestas.size();i++)
+			{
+				String votoRespuesta = votoRespuestas.get(i);
+				List<String> voto = Arrays.asList(votoRespuesta.split(delim2));
+				preguntaRespuesta.put(voto.get(0), voto.get(1));
+			}
+			VotoNuevo votoNuevo = new VotoNuevo();
+			votoNuevo.setAge(v.getAge());
+			votoNuevo.setAutonomous_community(v.getAutonomous_community());
+			votoNuevo.setGenre(v.getGenre());
+			votoNuevo.setId(v.getId());
+			votoNuevo.setId_poll(v.getId_poll());
+			votoNuevo.setPreguntaRespuesta(preguntaRespuesta);
+			votoNuevos.add(votoNuevo);
+		}
+		
+		Set<String> claves = new HashSet<String>();
+		for (VotoNuevo v : votoNuevos) {
+			claves.addAll(v.getPreguntaRespuesta().keySet());
+		}
+		List<Resultado> resultados = new ArrayList<Resultado>();
+		for (String c : claves) {
+			resultados.add(new Resultado(c, 0, 0));
+		}
+		for (VotoNuevo v : votoNuevos) {
 			for (Resultado r : resultados) {
 				if (v.getPreguntaRespuesta().get(r.getPregunta())!=null) {
 					if (v.getPreguntaRespuesta().get(r.getPregunta())

@@ -3,6 +3,7 @@ package com.egc.test;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +17,7 @@ import algoritmos.Algoritmo;
 import domain.Resultado;
 import domain.Voto;
 import domain.VotoAntiguo;
+import domain.VotoAux;
 
 @RestController
 public class ApiTestController {
@@ -91,7 +93,20 @@ public class ApiTestController {
 //						+ idVotacion, Voto.class);
 		
 		
-		List<Resultado> resultados = Algoritmo.algoritmo3();
+		
+		List<VotoAux> votos = new ArrayList<VotoAux>();
+		VotoAux v = new VotoAux();
+		v.setAge(23);
+		v.setAutonomous_community("PepeLandia");
+		v.setGenre("hombre afeminado");
+		v.setId("1");
+		v.setId_poll("2");
+		v.setAnswer("¿esto funciona?:si,¿de verdad?:si");
+		votos.add(v);
+		
+//Aquí imagino que pondremos la desencriptación de los votos y una vez tengamos una lista de votoNuevo llamaremos al algoritmo	
+		
+		List<Resultado> resultados = Algoritmo.algoritmo4(votos);
 		return resultados;
 
 	}
