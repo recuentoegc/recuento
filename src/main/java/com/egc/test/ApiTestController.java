@@ -80,7 +80,7 @@ public class ApiTestController {
 	
 			Map<String, Integer> recuento = Algoritmo.Algoritmo(votos.getVotes());
 			
-			//return recuento;
+			return recuento;
 	
 		}
 	@RequestMapping("/recuento3")
