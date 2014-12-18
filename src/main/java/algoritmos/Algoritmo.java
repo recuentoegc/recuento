@@ -8,10 +8,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.crypto.BadPaddingException;
+
+import com.google.gson.Gson;
+
+import main.AuthorityImpl;
 import domain.Resultado;
 import domain.VotoAntiguo;
-import domain.VotoNuevo;
 import domain.VotoAux;
+import domain.VotoNuevo;
+import main.*;
+
 
 public class Algoritmo {
 	// Suponemos que la base de datos almacenará la información de la siguiente
@@ -22,7 +29,7 @@ public class Algoritmo {
 
 	// La supuesta lista que nos pasan
 
-	public static Map<String, Integer> Algoritmo(List<String> votos) {
+	public static Map<String, Integer> Algoritmo1(List<String> votos) {
 
 		// Suponemos que la coleccion "votos" es lo que hemos recuperado de la
 		// base de datos
@@ -78,42 +85,21 @@ public class Algoritmo {
 		return resultados;
 	}
 
-	public static List<Resultado> algoritmo3() // (List<VotoNuevo> votos)
+	public static List<Resultado> algoritmo3(String idVotacion,List<String> votos) throws BadPaddingException 
 	{
-		VotoNuevo voto1 = new VotoNuevo();
-		Map<String, String> preguntaRespuesta = new HashMap<String, String>();
-		preguntaRespuesta.put("¿esta asignatura es útil?", "no");
-		preguntaRespuesta.put("¿cambiarías algo de esta asignatura?", "si");
-		//preguntaRespuesta.put("¿llegará tarde Neira?", "si");
-		voto1.setId("1");
-		voto1.setId_poll("1");
-		voto1.setPreguntaRespuesta(preguntaRespuesta);
-
-		VotoNuevo voto2 = new VotoNuevo();
-		voto2.setId("2");
-		voto2.setId_poll("1");
-		Map<String, String> preguntaRespuesta2 = new HashMap<String, String>();
-		preguntaRespuesta2.put("¿esta asignatura es útil?", "si");
-		preguntaRespuesta2.put("¿cambiarías algo de esta asignatura?", "no");
-		preguntaRespuesta2.put("¿llegará tarde Neira?", "si");
-		voto2.setPreguntaRespuesta(preguntaRespuesta2);
-
-		VotoNuevo voto3 = new VotoNuevo();
-		voto3.setId("3");
-		voto3.setId_poll("1");
-		Map<String, String> preguntaRespuesta3 = new HashMap<String, String>();
-		preguntaRespuesta3.put("¿esta asignatura es útil?", "no");
-		preguntaRespuesta3.put("¿cambiarías algo de esta asignatura?", "si");
-		preguntaRespuesta3.put("¿llegará tarde Neira?", "si");
-		voto3.setPreguntaRespuesta(preguntaRespuesta3);
-
+		Authority auth = new AuthorityImpl();
 		List<VotoNuevo> votes = new ArrayList<VotoNuevo>();
-		votes.add(voto1);
-		votes.add(voto2);
-		votes.add(voto3);
-
-		// Algoritmo
-
+		for (String s: votos)
+		{
+			if (auth.checkVote(s.getBytes(), idVotacion))
+			{
+				String json = auth.decrypt(idVotacion, s.getBytes());
+				Gson gson = new Gson();
+				VotoNuevo vot = gson.fromJson(json,VotoNuevo.class);
+				votes.add(vot);
+			}
+		}
+		
 		Set<String> claves = new HashSet<String>();
 		for (VotoNuevo v : votes) {
 			claves.addAll(v.getPreguntaRespuesta().keySet());
@@ -137,6 +123,8 @@ public class Algoritmo {
 		}
 		return resultados;
 	}
+	
+	
 	public static List<Resultado> algoritmo4(List<VotoAux> votos){
 		List<VotoNuevo> votoNuevos = new ArrayList<VotoNuevo>();
 		

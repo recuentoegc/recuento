@@ -9,10 +9,11 @@ public class VotoNuevo {
 	
 	String id;
 	String id_poll;
-	Map<String,String> preguntaRespuesta;
 	Integer age;
 	String genre;
 	String autonomous_community;
+	Map<String,String> answers;
+	
 	public String getId() {
 		return id;
 	}
@@ -45,10 +46,10 @@ public class VotoNuevo {
 		this.autonomous_community = autonomous_community;
 	}
 	public Map<String, String> getPreguntaRespuesta() {
-		return preguntaRespuesta;
+		return answers;
 	}
 	public void setPreguntaRespuesta(Map<String, String> preguntaRespuesta) {
-		this.preguntaRespuesta = preguntaRespuesta;
+		this.answers = preguntaRespuesta;
 	}
 	
 	

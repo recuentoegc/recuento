@@ -3,9 +3,10 @@ package com.egc.test;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import javax.crypto.BadPaddingException;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,9 +16,9 @@ import org.springframework.web.client.RestTemplate;
 
 import algoritmos.Algoritmo;
 import domain.Resultado;
-import domain.Voto;
 import domain.VotoAntiguo;
-import domain.VotoAux;
+import domain.Votos;
+import domain.VotosNuevo;
 
 @RestController
 public class ApiTestController {
@@ -57,11 +58,11 @@ public class ApiTestController {
 		URI uri = new URI("http://localhost:8080/Frontend-Resultados/rest/votacion/post.do?id_votacion="+idVotacion);
 		
 		RestTemplate restTemplate = new RestTemplate();
-		Voto votos = restTemplate.getForObject(
+		Votos votos = restTemplate.getForObject(
 				"http://php-egc.rhcloud.com/get_votes.php?votation_id="
-						+ idVotacion, Voto.class);
+						+ idVotacion, Votos.class);
 
-		Map<String, Integer> recuento = Algoritmo.Algoritmo(votos.getVotes());
+		Map<String, Integer> recuento = Algoritmo.Algoritmo1(votos.getVotes());
 		
 		restTemplate.postForObject(uri, recuento, Map.class);
 		
@@ -74,39 +75,25 @@ public class ApiTestController {
 				@RequestParam(value = "idVotacion", required = true) int idVotacion) {
 	
 			RestTemplate restTemplate = new RestTemplate();
-			Voto votos = restTemplate.getForObject(
+			Votos votos = restTemplate.getForObject(
 					"http://php-egc.rhcloud.com/get_votes.php?votation_id="
-							+ idVotacion, Voto.class);
+							+ idVotacion, Votos.class);
 	
-			Map<String, Integer> recuento = Algoritmo.Algoritmo(votos.getVotes());
+			Map<String, Integer> recuento = Algoritmo.Algoritmo1(votos.getVotes());
 			
 			return recuento;
 	
 		}
 	@RequestMapping("/recuento3")
-	public List<Resultado> recuento3(){
-			//@RequestParam(value = "idVotacion", required = true) int idVotacion) {
+	public List<Resultado> recuento3(
+			@RequestParam(value = "idVotacion", required = true) String idVotacion) throws BadPaddingException {
 
-		//RestTemplate restTemplate = new RestTemplate();
-//		VotoNuevo votos = restTemplate.getForObject(
-//				"http://php-egc.rhcloud.com/get_votes.php?votation_id="
-//						+ idVotacion, Voto.class);
+			RestTemplate restTemplate = new RestTemplate();
+			VotosNuevo votos = restTemplate.getForObject(
+					"http://php-egc.rhcloud.com/get_votes.php?votation_id="
+							+ idVotacion, VotosNuevo.class);
 		
-		
-		
-		List<VotoAux> votos = new ArrayList<VotoAux>();
-		VotoAux v = new VotoAux();
-		v.setAge(23);
-		v.setAutonomous_community("PepeLandia");
-		v.setGenre("hombre afeminado");
-		v.setId("1");
-		v.setId_poll("2");
-		v.setAnswer("¿esto funciona?:si,¿de verdad?:si");
-		votos.add(v);
-		
-//Aquí imagino que pondremos la desencriptación de los votos y una vez tengamos una lista de votoNuevo llamaremos al algoritmo	
-		
-		List<Resultado> resultados = Algoritmo.algoritmo4(votos);
+		List<Resultado> resultados = Algoritmo.algoritmo3(idVotacion,votos.getVotes());
 		return resultados;
 
 	}
