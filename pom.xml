@@ -105,6 +105,13 @@
             <version>2.2.3</version>
         </dependency>
         
+        <!-- Libreria verificacion -->
+        <dependency>
+        <groupId>com.verificacion</groupId>
+        <artifactId>verificacion</artifactId>
+        <version>1.0</version>
+        </dependency>
+        
         <!-- MySQL -->
 
 		<dependency>
@@ -182,7 +189,8 @@
 			<artifactId>junit</artifactId>
 			<version>4.7</version>
 			<scope>test</scope>
-		</dependency>        
+		</dependency>
+
 	</dependencies>
     <build>
         <plugins>

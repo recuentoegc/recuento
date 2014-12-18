@@ -10,14 +10,16 @@ import java.util.Set;
 
 import javax.crypto.BadPaddingException;
 
+import main.Authority;
+import main.AuthorityImpl;
+
 import com.google.gson.Gson;
 
-import main.AuthorityImpl;
 import domain.Resultado;
 import domain.VotoAntiguo;
 import domain.VotoAux;
 import domain.VotoNuevo;
-import main.*;
+
 
 
 public class Algoritmo {
