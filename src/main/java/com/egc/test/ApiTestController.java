@@ -3,9 +3,11 @@ package com.egc.test;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.security.InvalidKeyException;
 import java.security.KeyPair;
 import java.security.NoSuchAlgorithmException;
 import java.security.PublicKey;
+import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +15,7 @@ import java.util.Map;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
 import main.Authority;
@@ -101,7 +104,7 @@ public class ApiTestController {
 	@RequestMapping("/recuento3")
 	public List<Resultado> recuento3(
 			@RequestParam(value = "idVotacion", required = true) String idVotacion)
-			throws BadPaddingException {
+			throws BadPaddingException, InvalidKeyException, NoSuchAlgorithmException, InvalidKeySpecException, NoSuchPaddingException, IllegalBlockSizeException {
 
 		RestTemplate restTemplate = new RestTemplate();
 		VotosNuevo votos = restTemplate.getForObject(
@@ -114,36 +117,7 @@ public class ApiTestController {
 
 	}
 
-	@RequestMapping("/recuento4")
-	public List<Resultado> recuento4(
-			@RequestParam(value = "idVotacion", required = true) String idVotacion)
-			throws BadPaddingException {
 
-		RestTemplate restTemplate = new RestTemplate();
-		VotosNuevo votos = restTemplate.getForObject(
-				"http://php-egc.rhcloud.com/get_votes.php?votation_id="
-						+ idVotacion, VotosNuevo.class);
-
-		Authority aut = new AuthorityImpl();
-		VotoNuevo vot = new VotoNuevo();
-		vot.setAge(1);
-		vot.setId("2");
-		vot.setId_poll("2");
-		vot.setGenre("fem");
-		Map<String, String> ma = new HashMap<String, String>();
-		ma.put("pregunta1", "si");
-		vot.setPreguntaRespuesta(ma);
-		vot.setAutonomous_community("tucasa");
-
-		String voto = "{\"age\": \"24\",\"answers\":[{\"question\":\"Pregunta 1\",\"answer_question\":\"SI\"},{\"question\":\"Pregunta 2\",\"answer_question\":\"SI\"}],\"id\": 1,\"autonomous_community\": \"Andalucia\",\"genre\": \"Masculino\",\"id_poll\": 32778}";
-
-		List<String> votes = new ArrayList<String>();
-
-		List<Resultado> resultados = Algoritmo.algoritmo3(idVotacion,
-				votos.getVotes());
-		return resultados;
-
-	}
 
 	
 

@@ -1,5 +1,6 @@
 package domain;
 
+import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -12,7 +13,7 @@ public class VotoNuevo {
 	Integer age;
 	String genre;
 	String autonomous_community;
-	Map<String,String> answers;
+	private List<Answer> answers;
 	
 	public String getId() {
 		return id;
@@ -45,12 +46,14 @@ public class VotoNuevo {
 	public void setAutonomous_community(String autonomous_community) {
 		this.autonomous_community = autonomous_community;
 	}
-	public Map<String, String> getPreguntaRespuesta() {
+	public List<Answer> getAnswers() {
 		return answers;
 	}
-	public void setPreguntaRespuesta(Map<String, String> preguntaRespuesta) {
-		this.answers = preguntaRespuesta;
+	public void setAnswers(List<Answer> answers) {
+		this.answers = answers;
 	}
+	
+	
 	
 	
 }

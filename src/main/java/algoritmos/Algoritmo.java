@@ -1,5 +1,13 @@
 package algoritmos;
 
+import java.io.IOException;
+import java.security.InvalidKeyException;
+import java.security.Key;
+import java.security.KeyFactory;
+import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.KeySpec;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -9,12 +17,21 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import javax.xml.bind.DatatypeConverter;
 
 import main.Authority;
 import main.AuthorityImpl;
 
 import com.google.gson.Gson;
 
+import sun.misc.BASE64Decoder;
+
+import java.security.spec.PKCS8EncodedKeySpec;
+
+import domain.Answer;
 import domain.Resultado;
 import domain.VotoAntiguo;
 import domain.VotoAux;
@@ -22,6 +39,7 @@ import domain.VotoNuevo;
 
 
 
+@SuppressWarnings("restriction")
 public class Algoritmo {
 	// Suponemos que la base de datos almacenará la información de la siguiente
 	// manera: "PP", "PSOE", "PP", "PODEMOS", ...
@@ -87,92 +105,99 @@ public class Algoritmo {
 		return resultados;
 	}
 
-	public static List<Resultado> algoritmo3(String idVotacion,List<String> votos) throws BadPaddingException 
+	public static List<Resultado> algoritmo3(String idVotacion,List<String> votos) throws BadPaddingException, NoSuchAlgorithmException, InvalidKeySpecException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException 
 	{
 		Authority auth = new AuthorityImpl();
 		List<VotoNuevo> votes = new ArrayList<VotoNuevo>();
+		String key = auth.getPrivateKey(idVotacion);
 		for (String s: votos)
 		{
-			if (auth.checkVote(s.getBytes(), idVotacion))
+			BASE64Decoder decoder = new BASE64Decoder();
+			String g = s.substring(0,s.length()-1);
+			
+			try
 			{
-				String json = auth.decrypt(idVotacion, s.getBytes());
-				Gson gson = new Gson();
-				VotoNuevo vot = gson.fromJson(json,VotoNuevo.class);
-				votes.add(vot);
-			}
-		}
-		
-		Set<String> claves = new HashSet<String>();
-		for (VotoNuevo v : votes) {
-			claves.addAll(v.getPreguntaRespuesta().keySet());
-		}
-		List<Resultado> resultados = new ArrayList<Resultado>();
-		for (String c : claves) {
-			resultados.add(new Resultado(c, 0, 0));
-		}
-		for (VotoNuevo v : votes) {
-			for (Resultado r : resultados) {
-				if (v.getPreguntaRespuesta().get(r.getPregunta())!=null) {
-					if (v.getPreguntaRespuesta().get(r.getPregunta())
-							.equals("si")) {
-						r.setNumeroSi(r.getNumeroSi() + 1);
-					} else if (v.getPreguntaRespuesta().get(r.getPregunta())
-							.equals("no")) {
-						r.setNumeroNo(r.getNumeroNo() + 1);
-					}
+				byte[] bytesDecode = decoder.decodeBuffer(g);
+			
+				if (auth.checkVote(s.getBytes(), idVotacion))
+				{
+					Cipher rsa;
+				
+					KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+					KeySpec keySpec = new PKCS8EncodedKeySpec(DatatypeConverter.parseBase64Binary(key));
+					PrivateKey privKeyFromBytes = keyFactory.generatePrivate(keySpec);
+					rsa = Cipher.getInstance("RSA/ECB/PKCS1Padding");
+					rsa.init(Cipher.DECRYPT_MODE, privKeyFromBytes);
+					byte[] bytesDesencriptados = rsa.doFinal(bytesDecode);
+					String json = new String(bytesDesencriptados);
+					Gson gson = new Gson();
+					VotoNuevo vot = gson.fromJson(json,VotoNuevo.class);
+					votes.add(vot);
 				}
 			}
+			catch (IOException e) 
+			{
+			// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-		return resultados;
-	}
-	
-	
-	public static List<Resultado> algoritmo4(List<VotoAux> votos){
-		List<VotoNuevo> votoNuevos = new ArrayList<VotoNuevo>();
-		
-		for (VotoAux v:votos)
+		Set<String> claves = new HashSet<String>();
+		for (VotoNuevo v : votes) 
 		{
-			String delim1 = "[,]";
-			String delim2 = "[:]";
-			Map<String,String> preguntaRespuesta = new HashMap<String,String>();
-			List<String> votoRespuestas = Arrays.asList(v.getAnswer().split(delim1));
-			for(int i=0;i<votoRespuestas.size();i++)
+			for (Answer a: v.getAnswers())
 			{
-				String votoRespuesta = votoRespuestas.get(i);
-				List<String> voto = Arrays.asList(votoRespuesta.split(delim2));
-				preguntaRespuesta.put(voto.get(0), voto.get(1));
+				claves.add(a.getQuestion());
 			}
-			VotoNuevo votoNuevo = new VotoNuevo();
-			votoNuevo.setAge(v.getAge());
-			votoNuevo.setAutonomous_community(v.getAutonomous_community());
-			votoNuevo.setGenre(v.getGenre());
-			votoNuevo.setId(v.getId());
-			votoNuevo.setId_poll(v.getId_poll());
-			votoNuevo.setPreguntaRespuesta(preguntaRespuesta);
-			votoNuevos.add(votoNuevo);
-		}
-		
-		Set<String> claves = new HashSet<String>();
-		for (VotoNuevo v : votoNuevos) {
-			claves.addAll(v.getPreguntaRespuesta().keySet());
 		}
 		List<Resultado> resultados = new ArrayList<Resultado>();
-		for (String c : claves) {
+		for (String c : claves) 
+		{
 			resultados.add(new Resultado(c, 0, 0));
 		}
-		for (VotoNuevo v : votoNuevos) {
-			for (Resultado r : resultados) {
-				if (v.getPreguntaRespuesta().get(r.getPregunta())!=null) {
-					if (v.getPreguntaRespuesta().get(r.getPregunta())
-							.equals("si")) {
+		for (VotoNuevo v : votes) 
+		{
+			for (Resultado r : resultados)
+			{
+				for (Answer a:v.getAnswers())
+				{
+					
+					if (a!=null) 
+					{
+						if(a.equals(r.getPregunta()))
+						{
+							System.out.println(a.getAnswer_question());
+							if (a.getAnswer_question().equalsIgnoreCase("si")||a.getAnswer_question().equalsIgnoreCase("sí"))
+					{
 						r.setNumeroSi(r.getNumeroSi() + 1);
-					} else if (v.getPreguntaRespuesta().get(r.getPregunta())
-							.equals("no")) {
+					} 
+					else if (a.getAnswer_question().equalsIgnoreCase("no")) 
+					{
 						r.setNumeroNo(r.getNumeroNo() + 1);
+					}
 					}
 				}
 			}
 		}
+		}
 		return resultados;
 	}
+	
+	
+	
+	 public static String decrypt(byte[] cipherText, Key privateKey)
+	            throws BadPaddingException, InvalidKeyException,
+	            NoSuchAlgorithmException, NoSuchPaddingException,
+	            IllegalBlockSizeException {
+	 
+	        String res;
+	        Cipher rsa;
+	 
+	        rsa = Cipher.getInstance("RSA");
+	        rsa.init(Cipher.DECRYPT_MODE, privateKey);
+	 
+	        byte[] bytesDesencriptados = rsa.doFinal(cipherText);
+	        res = new String(bytesDesencriptados);
+	        return res;
+	 
+	    }
 }
