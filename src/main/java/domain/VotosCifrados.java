@@ -2,10 +2,10 @@ package domain;
 
 import java.util.List;
 
-public class Votos {
+public class VotosCifrados {
 
 	private Integer msg;
-	private List<Voto> votes;
+	private List<String> votes;
 
 	public Integer getMsg() {
 		return this.msg;
@@ -15,11 +15,11 @@ public class Votos {
 		this.msg = msg;
 	}
 
-	public List<Voto> getVotes() {
+	public List<String> getVotes() {
 		return votes;
 	}
 
-	public void setVotes(List<Voto> votes) {
+	public void setVotes(List<String> votes) {
 		this.votes = votes;
 	}
 
